@@ -24,7 +24,9 @@ Deploy the **backend on Render** and the **frontend on Vercel**.
 ### Option B — Manual Web Service
 
 1. **New** → **Web Service** → connect your GitHub repo.
-2. Settings:
+2. Settings (**choose one setup**):
+
+   **Setup A — Root Directory = `backend` (recommended)**
 
    | Setting | Value |
    |---------|-------|
@@ -33,7 +35,18 @@ Deploy the **backend on Render** and the **frontend on Vercel**.
    | **Build Command** | `pip install -r requirements.txt` |
    | **Start Command** | `cd src && gunicorn api:app --bind 0.0.0.0:$PORT` |
 
+   **Setup B — Root Directory left blank (repo root)**
+
+   | Setting | Value |
+   |---------|-------|
+   | **Root Directory** | *(leave empty)* |
+   | **Runtime** | Python 3 |
+   | **Build Command** | `pip install -r requirements.txt` |
+   | **Start Command** | `cd backend/src && gunicorn api:app --bind 0.0.0.0:$PORT` |
+
 3. Add environment variable `FRONTEND_URL` = your Vercel frontend URL.
+
+> **Build failed: `No such file or directory: requirements.txt`** — Root Directory is wrong. Use Setup A or Setup B above.
 
 ### Verify backend
 

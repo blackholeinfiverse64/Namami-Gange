@@ -1,9 +1,8 @@
 // api.ts
 // Central service layer -- all backend calls go through here
-// Backend: http://localhost:5000
 
-
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000';
 
 export async function fetchResults(model: string = 'inland_port') {
   const res = await fetch(`${BASE_URL}/results?model=${model}`);

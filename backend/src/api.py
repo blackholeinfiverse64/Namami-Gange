@@ -24,7 +24,21 @@ from signal_trace_layer import attach_trace
 from constraint_engine import evaluate_constraints, build_constraint_block
 
 app = Flask(__name__)
-CORS(app)
+
+_frontend_origins = os.environ.get(
+    "FRONTEND_URL",
+    "http://localhost:3000",
+)
+if _frontend_origins == "*":
+    CORS(app)
+else:
+    CORS(app, origins=[o.strip() for o in _frontend_origins.split(",")])
+
+from simulate_api import simulate_bp
+from marine_api import marine_bp
+
+app.register_blueprint(simulate_bp)
+app.register_blueprint(marine_bp)
 
 # DATA LOADING HELPERS
 # ─────────────────────────────────────────────
@@ -260,9 +274,6 @@ def internal_error(e):
 
 
 if __name__ == "__main__":
-    print("NICAI API -- Starting on http://localhost:5000")
-    from simulate_api import simulate_bp
-    from marine_api import marine_bp
-    app.register_blueprint(simulate_bp)
-    app.register_blueprint(marine_bp)
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    print(f"NICAI API -- Starting on http://localhost:{port}")
+    app.run(debug=False, host="0.0.0.0", port=port)

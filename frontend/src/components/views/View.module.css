@@ -11,13 +11,15 @@
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 800;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: 13px;
+  font-size: var(--text-base);
   color: var(--text-dim);
+  font-weight: 400;
 }
 
 .statsRow {
@@ -86,16 +88,16 @@
 }
 
 .cardTitle {
-  font-family: var(--font-display);
-  font-size: 12px;
+  font-size: var(--text-sm);
+  font-weight: 600;
   text-transform: uppercase;
   color: var(--text-secondary);
   margin-bottom: 12px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .listItem {
-  font-size: 13px;
+  font-size: var(--text-base);
   padding: 8px 0;
   border-bottom: 1px solid var(--border);
   color: var(--text-secondary);

@@ -54,6 +54,7 @@ interface RecoveryEvent {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('global');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // CENTRAL SIMULATOR STATE
   const [isSimulating, setIsSimulating] = useState(true);
@@ -370,31 +371,32 @@ export default function Home() {
             {/* Executive KPI Zone (Phase 5) */}
             <div className={styles.gridStats}>
               <IntelligenceCard 
-                title="COMPOSITE SUITABILITY" 
+                title="Composite Suitability" 
                 value={`${activeLocData.score}%`} 
                 delta={activeLocData.level} 
                 deltaType={activeLocData.score > 80 ? 'up' : activeLocData.score > 60 ? 'neutral' : 'down'} 
                 color={activeLocData.score > 80 ? 'green' : activeLocData.score > 60 ? 'teal' : 'red'} 
               />
               <IntelligenceCard 
-                title="FEDERATION STATE" 
+                title="Federation State" 
                 value={validationBreach ? 'ANOMALOUS' : 'DETERMINISTIC'} 
-                delta={validationBreach ? 'BREACH ⚠' : '100% SYNC'} 
+                delta={validationBreach ? 'BREACH' : '100% SYNC'} 
                 deltaType={validationBreach ? 'down' : 'up'} 
                 color={validationBreach ? 'red' : 'green'} 
               />
               <IntelligenceCard 
-                title="ACTIVE CORRELATIONS" 
+                title="Active Correlations" 
                 value={`Block #${currentBlock}`} 
                 delta="LIVE" 
                 deltaType="neutral" 
-                color="blue" 
+                color="purple" 
               />
               <IntelligenceCard 
-                title="DECISION CONFIDENCE" 
+                title="Decision Confidence" 
                 value={`${activeLocData.confidence}%`} 
                 delta="VERIFIED" 
-                color="teal" 
+                deltaType="up"
+                color="blue" 
               />
             </div>
 
@@ -635,8 +637,13 @@ export default function Home() {
   };
 
   return (
-    <main className={styles.main}>
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+    <main className={`${styles.main} ${sidebarCollapsed ? styles.mainCollapsed : ''}`}>
+      <Sidebar
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        collapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed((c) => !c)}
+      />
       <Topbar />
       <div className={styles.content}>
         {renderContent()}

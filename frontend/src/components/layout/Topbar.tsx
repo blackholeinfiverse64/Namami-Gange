@@ -24,11 +24,12 @@ export default function Topbar() {
 
   return (
     <header className={styles.topbar}>
+      <div className={styles.pageTitle}>
+        <h1>Namami Gange</h1>
+        <span className={styles.pageSubtitle}>Operational Intelligence Platform</span>
+      </div>
+
       <div className={styles.stats}>
-        <div className={styles.stat}>
-          <span className={styles.label}>Live Feed:</span>
-          <span className={`${styles.value} ${styles.good}`}>Active</span>
-        </div>
         <div className={styles.stat}>
           <span className={styles.label}>Basin Alert:</span>
           <span className={`${styles.value} ${styles.warning}`}>02 Elevated</span>
@@ -40,8 +41,12 @@ export default function Topbar() {
       </div>
       
       <div className={styles.actions}>
+        <div className={styles.livePill}>
+          <span className={styles.liveDot}></span>
+          LIVE
+        </div>
         <div className={styles.time}>{time || '--:--:-- IST'}</div>
-        <button className={styles.actionBtn}>📡 Signal Monitor</button>
+        <button className={styles.actionBtn}>↻ Refresh</button>
       </div>
     </header>
   );
